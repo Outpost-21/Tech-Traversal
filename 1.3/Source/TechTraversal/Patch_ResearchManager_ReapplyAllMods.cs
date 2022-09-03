@@ -30,16 +30,35 @@ namespace TechTraversal
             }
 
             // Advance Tech Level as Necessary
-            while (playerFactionDef.techLevel < TechLevel.Ultra && !AnyProjectAtLevelUnfinished(playerFactionDef.techLevel))
+            while (playerFactionDef.techLevel < TechLevel.Ultra && TechLevelConsideredCompleted(playerFactionDef.techLevel))
             {
                 playerFactionDef.techLevel++;
                 LogUtil.LogMessage("Upgraded player tech level to " + playerFactionDef.techLevel.ToStringHuman());
             }
         }
 
-        public static bool AnyProjectAtLevelUnfinished(TechLevel techLevel)
+        public static bool TechLevelConsideredCompleted(TechLevel techLevel)
         {
-            return DefDatabase<ResearchProjectDef>.AllDefsListForReading.Find(rpd => rpd.techLevel == techLevel && !rpd.IsFinished) != null;
+            bool result = false;
+            TechTraversalSettings s = TechTraversalMod.settings;
+
+            List<ResearchProjectDef> allResearchForTechLevel;
+            if (s.onlyCountOfficialResearch)
+            {
+                allResearchForTechLevel = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Where(rpd => rpd.techLevel == techLevel && rpd.modContentPack != null && (rpd.modContentPack.IsCoreMod || rpd.modContentPack.IsOfficialMod)).ToList();
+            }
+            else
+            {
+                allResearchForTechLevel = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Where(rpd => rpd.techLevel == techLevel).ToList();
+            }
+            float completedPercentage = (float)allResearchForTechLevel.Where(rpd => rpd.IsFinished).Count() / (float)allResearchForTechLevel.Count();
+
+            if(completedPercentage >= s.percentageOfTechNeeded)
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }

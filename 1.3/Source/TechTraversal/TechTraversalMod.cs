@@ -50,6 +50,11 @@ namespace TechTraversal
             GUI.color = Color.white;
             listing.GapLine();
             listing.CheckboxEnhanced("Show Tech and Counter", "If checked, this enables a note on the Vanilla research screen which says what tech level the selected research is as well as a counter of how many techs from that level are completed.", ref settings.showTechCounter);
+            listing.GapLine();
+            listing.AddLabeledSlider("Percentage of Research Needed: " + settings.percentageOfTechNeeded.ToStringPercent(), ref settings.percentageOfTechNeeded, 0f, 1f, "Min: 0%", "Max: 100%", 0.01f);
+            listing.Note("This controls how many of the current tech level research needs to be completed for the tech level to be counted as 'complete'.", GameFont.Tiny);
+            listing.GapLine();
+            listing.CheckboxEnhanced("Only Count Vanilla/DLC Research", "If checked, this makes the counter completely ignore any research added by mods.", ref settings.onlyCountOfficialResearch);
             listing.End();
 
             base.DoSettingsWindowContents(inRect);

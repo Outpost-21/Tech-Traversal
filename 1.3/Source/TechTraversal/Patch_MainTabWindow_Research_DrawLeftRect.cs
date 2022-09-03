@@ -35,7 +35,17 @@ namespace TechTraversal
 
         public static string GetFinishedTechCounter(TechLevel techLevel)
         {
-            List<ResearchProjectDef> allResearchForTechLevel = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Where(rpd => rpd.techLevel == techLevel).ToList();
+            TechTraversalSettings s = TechTraversalMod.settings;
+
+            List<ResearchProjectDef> allResearchForTechLevel;
+            if (s.onlyCountOfficialResearch)
+            {
+                allResearchForTechLevel = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Where(rpd => rpd.techLevel == techLevel && rpd.modContentPack != null && (rpd.modContentPack.IsCoreMod || rpd.modContentPack.IsOfficialMod)).ToList();
+            }
+            else
+            {
+                allResearchForTechLevel = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Where(rpd => rpd.techLevel == techLevel).ToList();
+            }
             return $"({allResearchForTechLevel.Where(rpd => rpd.IsFinished).Count()}/{allResearchForTechLevel.Count()})";
         }
     }

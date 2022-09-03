@@ -30,6 +30,16 @@ namespace TechTraversal
         /// </summary>
         public bool showTechCounter = true;
 
+        /// <summary>
+        /// Percentage of the current tiers tech required to be completed before upgrading to the next tier.
+        /// </summary>
+        public float percentageOfTechNeeded = 1f;
+
+        /// <summary>
+        /// If true, ignores any modded research for the tier counters.
+        /// </summary>
+        public bool onlyCountOfficialResearch = false;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -37,6 +47,8 @@ namespace TechTraversal
             Scribe_Values.Look(ref alwaysLowestUnfinishedLevel, "alwaysLowestUnfinishedLevel", false);
             Scribe_Values.Look(ref lowestTechLevel, "lowestTechLevel", TechLevel.Neolithic);
             Scribe_Values.Look(ref showTechCounter, "showTechCounter", true);
+            Scribe_Values.Look(ref percentageOfTechNeeded, "percentageOfTechNeeded", 1f);
+            Scribe_Values.Look(ref onlyCountOfficialResearch, "onlyCountOfficialResearch", false);
         }
 
         public bool IsValidSetting(string input)
