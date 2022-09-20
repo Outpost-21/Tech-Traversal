@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<OptionCategoryDef>
+		<defName>TechTraversal_Options</defName>
+		<label>Tech Traversal</label>
+		<texPath>UI/Icons/Options/OptionsGeneral</texPath>
+	</OptionCategoryDef>
+
+</Defs>
