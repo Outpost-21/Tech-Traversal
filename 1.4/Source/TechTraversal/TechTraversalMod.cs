@@ -74,7 +74,7 @@ namespace TechTraversal
             listing.Note("This controls how many of the current tech level research needs to be completed for the tech level to be counted as 'complete'.", GameFont.Tiny);
             GUI.color = Color.white;
             listing.CheckboxLabeled("Only Count Vanilla/DLC Research", ref settings.onlyCountOfficialResearch, "If checked, this makes the counter completely ignore any research added by mods.");
-            listing.CheckboxLabeled("Adjust Tech Tier Buffs", ref settings.adjustTechTiers, "The vanilla costs are only adjusted for tech tiers lower than industrial, if this is checked then researching higher or lower techs will be buffed and debuffed as approptiate, increasing the further the tech is from your current level.");
+            //listing.CheckboxLabeled("Adjust Tech Tier Buffs", ref settings.adjustTechTiers, "The vanilla costs are only adjusted for tech tiers lower than industrial, if this is checked then researching higher or lower techs will be buffed and debuffed as approptiate, increasing the further the tech is from your current level.");
         }
     }
 }
